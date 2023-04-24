@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>generativedesign</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color: black;">
+
+  <header>Discover your Birth Aura</header>     
+<script>
+
+const canvasWidth = 1900;
+const canvasHeight = 700;
+
+const numShapes = 50;
+let shapes = [];
+
+function setup() {
+  createCanvas(canvasWidth, canvasHeight);
+  background(0);
+  
+  
+  for (let i = 0; i < numShapes; i++) {
+    let shape = new Shape();
+    shapes.push(shape);
+  }
+}
+
+function draw() {
+  blendMode(ADD);
+  
+  for (let shape of shapes) {
+    shape.rotate();
+    shape.display();
+  }
+}
+
+class Shape {
+  constructor() {
+    this.size = random(50, 150);
+    this.x = random(width);
+    this.y = random(height);
+    this.speed = random(0.05, 0.01);
+    this.angle = 0;
+    this.color = color(random(255), random(255), random(255), 100);
+  }
+  
+  rotate() {
+    this.angle += this.speed;
+  }
+  
+  display() {
+    stroke(this.color);
+    strokeWeight(2);
+    noFill();
+    
+    push();
+    translate(this.x, this.y);
+    rotate(this.angle);
+    scale(sin(this.angle));
+    rect(0, 0, this.size, this.size);
+    pop();
+  }
+}
+ </script>
+
+<form class="input-form">
+    <label for="x-coordinate"> <span style="font-family: optima; color: white;">Birth Day</span> </label>
+    <input type="number" id="x-coordinate" name="x-coordinate" required>
+    <label for="y-coordinate"><span style="font-family: optima; color: white;">Birth Month</span></label>
+    <input type="number" id="y-coordinate" name="y-coordinate" required>
+    <button type="submit">Submit</button>  
+  </form>
+
+</body>
+
+</html> 
+
+   
